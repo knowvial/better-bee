@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spell Bee Practice - NSF Junior Championship</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=YOUR_KEY"></script>
+    <!-- Alternative: Use Web Speech API with premium voices -->
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Spell Bee Practice</h1>
+            <p class="subtitle">North South Foundation - Junior Championship 2025</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Practice Mode Selection -->
+            <div id="modeSelection" class="mode-selection">
+                <h2>Select Practice Mode</h2>
+                <div class="mode-buttons">
+                    <button class="mode-btn" onclick="startPractice('competition')">
+                        <span class="mode-icon">🏆</span>
+                        Competition Mode
+                    </button>
+                    <button class="mode-btn" onclick="startPractice('smart')">
+                        <span class="mode-icon">🧠</span>
+                        Smart Practice
+                    </button>
+                    <button class="mode-btn" onclick="startPractice('review')">
+                        <span class="mode-icon">📝</span>
+                        Review Mistakes
+                    </button>
+                </div>
+                
+                <!-- Session Settings -->
+                <div class="session-settings">
+                    <h3>Session Settings</h3>
+                    <div class="setting-group">
+                        <label for="wordCount">Number of words per session:</label>
+                        <select id="wordCount" onchange="saveWordCountPreference()">
+                            <option value="10">10 words (Quick - 5 mins)</option>
+                            <option value="20">20 words (Short - 10 mins)</option>
+                            <option value="30">30 words (Medium - 15 mins)</option>
+                            <option value="50" selected>50 words (Long - 25 mins)</option>
+                            <option value="75">75 words (Extended - 40 mins)</option>
+                            <option value="100">100 words (Full - 50 mins)</option>
+                            <option value="0">All available words</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Word List Upload -->
+                <div class="upload-section">
+                    <h3>Add Custom Words</h3>
+                    <input type="file" id="wordFileInput" accept=".csv,.json,.txt" onchange="handleFileUpload(event)">
+                    <small>Upload CSV, JSON, or TXT file with words</small>
+                </div>
+            </div>
+
+            <!-- Practice Interface -->
+            <div id="practiceInterface" class="practice-interface" style="display: none;">
+                <!-- Progress Bar -->
+                <div class="progress-section">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div class="progress-stats">
+                        <span id="wordsCompleted">0</span> / <span id="totalWords">0</span> words
+                        <span class="accuracy">Accuracy: <span id="accuracy">0</span>%</span>
+                    </div>
+                </div>
+
+                <!-- Spell Bee Interface -->
+                <div class="spellbee-section">
+                    <!-- Voice Selection -->
+                    <div class="voice-selection">
+                        <label for="voiceService">Voice Service: </label>
+                        <select id="voiceService" onchange="switchVoiceService()">
+                            <option value="browser">Browser Voices (Free)</option>
+                            <option value="elevenlabs">ElevenLabs (Best Quality)</option>
+                            <option value="responsivevoice">ResponsiveVoice (Free Tier)</option>
+                            <option value="speechsynthesis">Web Speech API Only</option>
+                        </select>
+                        
+                        <label for="voiceSelect" style="margin-left: 20px;">Voice: </label>
+                        <select id="voiceSelect" onchange="updateVoice()">
+                            <option value="">Loading voices...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="word-announcement">
+                        <p id="announcement" class="announcement-text">Get ready for your word...</p>
+                    </div>
+
+                    <!-- Word Information Display -->
+                    <div id="wordInfo" class="word-info" style="display: none;">
+                        <div class="info-card">
+                            <h4>📖 Definition</h4>
+                            <p id="definitionDisplay">-</p>
+                        </div>
+                        <div class="info-card">
+                            <h4>🌍 Origin</h4>
+                            <p id="originDisplay">-</p>
+                        </div>
+                        <div class="info-card">
+                            <h4>💬 Used in a sentence</h4>
+                            <p id="sentenceDisplay">-</p>
+                        </div>
+                    </div>
+
+                    <div class="control-buttons">
+                        <button class="control-btn" onclick="repeatWord()">
+                            <span>🔊</span> Repeat Word
+                        </button>
+                    </div>
+
+                    <!-- Spelling Input -->
+                    <div class="manual-input">
+                        <input type="text" id="spellingInput" placeholder="Type the spelling here" 
+                               onkeypress="handleKeyPress(event)" autofocus>
+                        <button class="submit-btn" onclick="submitSpelling()">Submit</button>
+                    </div>
+
+                    <!-- Feedback Section -->
+                    <div id="feedback" class="feedback-section" style="display: none;">
+                        <div id="feedbackContent"></div>
+                    </div>
+
+                    <!-- Skip/Next Button -->
+                    <div class="navigation">
+                        <button class="nav-btn" onclick="skipWord()">Skip Word</button>
+                        <button class="nav-btn primary" id="nextBtn" onclick="nextWord()" style="display: none;">Next Word</button>
+                    </div>
+                </div>
+
+                <!-- Exit Practice -->
+                <button class="exit-btn" onclick="exitPractice()">Exit Practice</button>
+            </div>
+
+            <!-- Results Dashboard -->
+            <div id="resultsSection" class="results-section" style="display: none;">
+                <h2>Practice Results</h2>
+                <div class="results-stats">
+                    <div class="stat-card">
+                        <h3>Words Practiced</h3>
+                        <p id="resultWords">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Accuracy</h3>
+                        <p id="resultAccuracy">0%</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Time Spent</h3>
+                        <p id="resultTime">0m</p>
+                    </div>
+                </div>
+
+                <div class="mistakes-review">
+                    <h3>Words to Review</h3>
+                    <div id="mistakesList" class="mistakes-list"></div>
+                </div>
+
+                <button class="mode-btn" onclick="resetToHome()">Practice Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <!-- <script src="security-config.js"></script> <!-- Optional: Uncomment for extra security -->
+    <script src="words-data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
