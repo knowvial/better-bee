@@ -165,6 +165,18 @@ class PracticeAlgorithm {
                 return status.status === 'failed';
             });
             
+            // Debug logging
+            console.log(`Debug - Review mode: Found ${failedWords.length} failed words`);
+            if (failedWords.length === 0) {
+                console.log('Debug - Word status summary:');
+                const statusCounts = {};
+                allWords.forEach(w => {
+                    const status = this.getWordStatus(w.word).status;
+                    statusCounts[status] = (statusCounts[status] || 0) + 1;
+                });
+                console.log(statusCounts);
+            }
+            
             // Return all failed words or limit to maxWords
             if (maxWords === 0) return failedWords;
             return failedWords.slice(0, maxWords);
