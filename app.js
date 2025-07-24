@@ -1,3 +1,21 @@
+// Password protection
+function checkPassword() {
+    const password = prompt("Enter password to access Better Bee:");
+    const correctPassword = "spellbee2025"; // Change this password!
+    
+    if (password !== correctPassword) {
+        alert("Incorrect password!");
+        window.location.href = "about:blank";
+        return false;
+    }
+    return true;
+}
+
+// Check password on page load
+if (!checkPassword()) {
+    throw new Error("Access denied");
+}
+
 // Global variables
 let currentMode = '';
 let currentWordIndex = 0;
