@@ -141,17 +141,41 @@ class PracticeAlgorithm {
     updateWordStatus(word, isCorrect) {
         const status = this.getWordStatus(word);
         status.attempts++;
+        
         if (isCorrect) {
             status.correct++;
-            if (status.correct >= 3) {
-                status.status = 'mastered';
+            
+            // Better progression for spaced repetition
+            if (status.status === 'failed') {
+                // First correct after failure - still needs more practice
+                if (status.correct === 1) {
+                    status.status = 'recovering'; // New status for recently corrected mistakes
+                } else if (status.correct >= 2) {
+                    status.status = 'learning';   // More confident after 2+ correct
+                }
+            } else if (status.status === 'recovering') {
+                if (status.correct >= 2) {
+                    status.status = 'learning';
+                }
+            } else if (status.status === 'learning') {
+                if (status.correct >= 4) {        // Increased threshold for mastery
+                    status.status = 'mastered';
+                }
             } else {
-                status.status = 'learning';
+                // New words or already mastered
+                if (status.correct >= 3) {
+                    status.status = 'mastered';
+                } else {
+                    status.status = 'learning';
+                }
             }
         } else {
+            // Wrong answer - reset but track previous status
+            status.previousStatus = status.status;
             status.status = 'failed';
             status.correct = 0;
         }
+        
         status.lastAttempt = Date.now();
         this.wordStatus[word] = status;
         this.saveWordStatus();
@@ -159,15 +183,23 @@ class PracticeAlgorithm {
     
     selectWords(allWords, mode, maxWords = 50) {
         if (mode === 'review') {
-            // Only failed words
+            // Include failed words (priority) and recovering words (lower priority)
             const failedWords = allWords.filter(w => {
                 const status = this.getWordStatus(w.word);
                 return status.status === 'failed';
             });
             
+            const recoveringWords = allWords.filter(w => {
+                const status = this.getWordStatus(w.word);
+                return status.status === 'recovering';
+            });
+            
+            // Combine with failed words first (higher priority)
+            const reviewWords = [...failedWords, ...recoveringWords];
+            
             // Debug logging
-            console.log(`Debug - Review mode: Found ${failedWords.length} failed words`);
-            if (failedWords.length === 0) {
+            console.log(`Debug - Review mode: Found ${failedWords.length} failed + ${recoveringWords.length} recovering = ${reviewWords.length} total review words`);
+            if (reviewWords.length === 0) {
                 console.log('Debug - Word status summary:');
                 const statusCounts = {};
                 allWords.forEach(w => {
@@ -177,15 +209,16 @@ class PracticeAlgorithm {
                 console.log(statusCounts);
             }
             
-            // Return all failed words or limit to maxWords
-            if (maxWords === 0) return failedWords;
-            return failedWords.slice(0, maxWords);
+            // Return all review words or limit to maxWords
+            if (maxWords === 0) return reviewWords;
+            return reviewWords.slice(0, maxWords);
         }
         
         if (mode === 'smart') {
             // Smart selection algorithm
             const categorized = {
                 failed: [],
+                recovering: [],
                 learning: [],
                 new: [],
                 mastered: []
@@ -199,7 +232,7 @@ class PracticeAlgorithm {
             // Use all words if maxWords is 0, otherwise limit
             const totalWords = maxWords === 0 ? allWords.length : Math.min(maxWords, allWords.length);
             
-            // Build practice list: 60% failed, 30% learning, 10% new
+            // Build practice list: 40% failed, 25% recovering, 25% learning, 10% new
             const practiceList = [];
             
             const addWords = (list, count) => {
@@ -207,8 +240,9 @@ class PracticeAlgorithm {
                 practiceList.push(...shuffled.slice(0, count));
             };
             
-            addWords(categorized.failed, Math.floor(totalWords * 0.6));
-            addWords(categorized.learning, Math.floor(totalWords * 0.3));
+            addWords(categorized.failed, Math.floor(totalWords * 0.4));
+            addWords(categorized.recovering, Math.floor(totalWords * 0.25));
+            addWords(categorized.learning, Math.floor(totalWords * 0.25));
             addWords(categorized.new, Math.floor(totalWords * 0.1));
             
             // Fill remaining with new words if needed
