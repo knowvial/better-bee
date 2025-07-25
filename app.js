@@ -429,21 +429,21 @@ function presentWord() {
     announcementEl.textContent = "Listen carefully...";
     announcementEl.className = 'announcement-text listening';
     
-    // Speak the word in spell bee format
-    speakText("Your word is", () => {
-        setTimeout(() => {
-            speakText(currentWord.word, () => {
-                // Repeat the word once more for clarity
-                setTimeout(() => {
-                    speakText(currentWord.word, () => {
-                        announcementEl.className = 'announcement-text';
-                        announcementEl.textContent = "Spell the word you just heard";
-                        focusInput();
-                    });
-                }, 500);
-            });
-        }, 300);
+    // Speak the word in spell bee format - simplified with fallback
+    announcementEl.textContent = `Your word is: ${currentWord.word}`;
+    
+    // Try to speak, but don't let it block the interface
+    speakText(`Your word is ${currentWord.word}`, () => {
+        // Speech finished successfully
+        console.log('Speech completed successfully');
     });
+    
+    // Always proceed to input after a short delay, regardless of speech
+    setTimeout(() => {
+        announcementEl.className = 'announcement-text';
+        announcementEl.textContent = "Spell the word you just heard";
+        focusInput();
+    }, 2000); // 2 second delay for speech, then always proceed
 }
 
 // Global voice settings
@@ -455,101 +455,65 @@ let elevenLabsApiKey = null; // User can add their API key
 let supabase = null;
 let databaseEnabled = false;
 
-// Text to speech with multiple service options
-async function speakText(text, callback) {
-    console.log('speakText called:', text, 'service:', currentVoiceService);
+// Text to speech - Simplified to just use browser API
+function speakText(text, callback) {
+    console.log('speakText called:', text);
     
-    // Add timeout to prevent hanging
-    let timeoutId = null;
-    if (callback) {
-        timeoutId = setTimeout(() => {
-            console.warn('Speech timeout - executing callback anyway');
-            callback();
-        }, 5000);
-    }
-    
-    const wrappedCallback = () => {
-        if (timeoutId) clearTimeout(timeoutId);
-        if (callback) callback();
-    };
-    
-    try {
-        switch (currentVoiceService) {
-            case 'elevenlabs':
-                await speakWithElevenLabs(text, wrappedCallback);
-                break;
-            case 'responsivevoice':
-                speakWithResponsiveVoice(text, wrappedCallback);
-                break;
-            case 'speechsynthesis':
-            case 'browser':
-            default:
-                speakWithBrowserAPI(text, wrappedCallback);
-                break;
-        }
-    } catch (error) {
-        console.error('Speech error:', error);
-        // Fallback to browser API
-        speakWithBrowserAPI(text, wrappedCallback);
-    }
+    // Just use browser API - it's the most reliable
+    speakWithBrowserAPI(text, callback);
 }
 
-// Browser Speech Synthesis API
+// Browser Speech Synthesis API - Simplified
 function speakWithBrowserAPI(text, callback) {
     console.log('speakWithBrowserAPI called with:', text);
     
     if ('speechSynthesis' in window) {
-        // Cancel any ongoing speech
-        speechSynthesis.cancel();
-        
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
-        utterance.rate = 0.8;
-        utterance.pitch = 1.0;
-        utterance.volume = 1.0;
-        
-        // Force load voices if not loaded
-        let voices = speechSynthesis.getVoices();
-        console.log('Available voices:', voices.length);
-        
-        if (voices.length === 0) {
-            console.log('No voices loaded, waiting for voiceschanged event');
-            speechSynthesis.addEventListener('voiceschanged', function() {
-                voices = speechSynthesis.getVoices();
-                console.log('Voices loaded after event:', voices.length);
-                speakWithLoadedVoices();
-            }, { once: true });
-            return;
-        }
-        
-        speakWithLoadedVoices();
-        
-        function speakWithLoadedVoices() {
-            // Use user-selected voice or find best available
-            if (selectedVoice && voices.includes(selectedVoice)) {
-                utterance.voice = selectedVoice;
-                console.log('Using selected voice:', selectedVoice.name);
-            } else {
-                const bestVoice = findBestVoice(voices);
-                if (bestVoice) {
-                    utterance.voice = bestVoice;
-                    selectedVoice = bestVoice;
-                    console.log('Using best voice:', bestVoice.name);
-                } else {
-                    console.log('Using default voice');
-                }
+        try {
+            // Cancel any ongoing speech
+            speechSynthesis.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.8;
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
+            
+            // Simple voice assignment
+            const voices = speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                // Find a good English voice
+                const englishVoice = voices.find(voice => 
+                    voice.lang.startsWith('en') && 
+                    (voice.name.includes('Female') || voice.name.includes('Male'))
+                ) || voices.find(voice => voice.lang.startsWith('en')) || voices[0];
+                
+                utterance.voice = englishVoice;
+                console.log('Using voice:', englishVoice.name);
             }
             
+            // Always execute callback after reasonable time
             if (callback) {
-                utterance.onend = callback;
-                utterance.onerror = () => {
-                    console.warn('Speech synthesis error, executing callback');
-                    callback();
+                let callbackCalled = false;
+                const callbackOnce = () => {
+                    if (!callbackCalled) {
+                        callbackCalled = true;
+                        callback();
+                    }
                 };
+                
+                utterance.onend = callbackOnce;
+                utterance.onerror = callbackOnce;
+                
+                // Safety timeout
+                setTimeout(callbackOnce, 3000);
             }
             
             console.log('Speaking:', text);
             speechSynthesis.speak(utterance);
+            
+        } catch (error) {
+            console.error('Speech error:', error);
+            if (callback) callback();
         }
     } else {
         console.warn('Speech synthesis not supported');
@@ -1170,31 +1134,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         elevenLabsApiKey = savedApiKey;
     }
     
-    // Load voices on startup with debugging
+    // Simple voice initialization
     console.log('Initializing speech synthesis...');
-    const initialVoices = speechSynthesis.getVoices();
-    console.log('Initial voices count:', initialVoices.length);
     
-    // Populate voice select when voices are ready
-    if (initialVoices.length === 0) {
-        console.log('Waiting for voices to load...');
+    // Try to load voices immediately
+    const voices = speechSynthesis.getVoices();
+    console.log('Available voices:', voices.length);
+    
+    if (voices.length === 0) {
+        // Wait for voices to load
         speechSynthesis.addEventListener('voiceschanged', () => {
-            console.log('Voices changed event fired');
-            const voices = speechSynthesis.getVoices();
-            console.log('Voices now available:', voices.length);
+            console.log('Voices loaded');
             populateVoiceSelect();
         });
-        
-        // Fallback: try to load voices after a delay
-        setTimeout(() => {
-            const voices = speechSynthesis.getVoices();
-            console.log('Fallback voice check:', voices.length);
-            if (voices.length > 0) {
-                populateVoiceSelect();
-            }
-        }, 1000);
     } else {
-        console.log('Voices already loaded, populating select');
         populateVoiceSelect();
     }
     
