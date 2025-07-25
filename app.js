@@ -457,29 +457,47 @@ let databaseEnabled = false;
 
 // Text to speech with multiple service options
 async function speakText(text, callback) {
+    console.log('speakText called:', text, 'service:', currentVoiceService);
+    
+    // Add timeout to prevent hanging
+    let timeoutId = null;
+    if (callback) {
+        timeoutId = setTimeout(() => {
+            console.warn('Speech timeout - executing callback anyway');
+            callback();
+        }, 5000);
+    }
+    
+    const wrappedCallback = () => {
+        if (timeoutId) clearTimeout(timeoutId);
+        if (callback) callback();
+    };
+    
     try {
         switch (currentVoiceService) {
             case 'elevenlabs':
-                await speakWithElevenLabs(text, callback);
+                await speakWithElevenLabs(text, wrappedCallback);
                 break;
             case 'responsivevoice':
-                speakWithResponsiveVoice(text, callback);
+                speakWithResponsiveVoice(text, wrappedCallback);
                 break;
             case 'speechsynthesis':
             case 'browser':
             default:
-                speakWithBrowserAPI(text, callback);
+                speakWithBrowserAPI(text, wrappedCallback);
                 break;
         }
     } catch (error) {
         console.error('Speech error:', error);
         // Fallback to browser API
-        speakWithBrowserAPI(text, callback);
+        speakWithBrowserAPI(text, wrappedCallback);
     }
 }
 
 // Browser Speech Synthesis API
 function speakWithBrowserAPI(text, callback) {
+    console.log('speakWithBrowserAPI called with:', text);
+    
     if ('speechSynthesis' in window) {
         // Cancel any ongoing speech
         speechSynthesis.cancel();
@@ -490,20 +508,52 @@ function speakWithBrowserAPI(text, callback) {
         utterance.pitch = 1.0;
         utterance.volume = 1.0;
         
-        // Use user-selected voice or find best available
-        if (selectedVoice) {
-            utterance.voice = selectedVoice;
-        } else {
-            const voices = speechSynthesis.getVoices();
-            const bestVoice = findBestVoice(voices);
-            if (bestVoice) {
-                utterance.voice = bestVoice;
-                selectedVoice = bestVoice;
-            }
+        // Force load voices if not loaded
+        let voices = speechSynthesis.getVoices();
+        console.log('Available voices:', voices.length);
+        
+        if (voices.length === 0) {
+            console.log('No voices loaded, waiting for voiceschanged event');
+            speechSynthesis.addEventListener('voiceschanged', function() {
+                voices = speechSynthesis.getVoices();
+                console.log('Voices loaded after event:', voices.length);
+                speakWithLoadedVoices();
+            }, { once: true });
+            return;
         }
         
-        if (callback) utterance.onend = callback;
-        speechSynthesis.speak(utterance);
+        speakWithLoadedVoices();
+        
+        function speakWithLoadedVoices() {
+            // Use user-selected voice or find best available
+            if (selectedVoice && voices.includes(selectedVoice)) {
+                utterance.voice = selectedVoice;
+                console.log('Using selected voice:', selectedVoice.name);
+            } else {
+                const bestVoice = findBestVoice(voices);
+                if (bestVoice) {
+                    utterance.voice = bestVoice;
+                    selectedVoice = bestVoice;
+                    console.log('Using best voice:', bestVoice.name);
+                } else {
+                    console.log('Using default voice');
+                }
+            }
+            
+            if (callback) {
+                utterance.onend = callback;
+                utterance.onerror = () => {
+                    console.warn('Speech synthesis error, executing callback');
+                    callback();
+                };
+            }
+            
+            console.log('Speaking:', text);
+            speechSynthesis.speak(utterance);
+        }
+    } else {
+        console.warn('Speech synthesis not supported');
+        if (callback) callback();
     }
 }
 
@@ -1120,13 +1170,31 @@ document.addEventListener('DOMContentLoaded', async () => {
         elevenLabsApiKey = savedApiKey;
     }
     
-    // Load voices on startup
-    speechSynthesis.getVoices();
+    // Load voices on startup with debugging
+    console.log('Initializing speech synthesis...');
+    const initialVoices = speechSynthesis.getVoices();
+    console.log('Initial voices count:', initialVoices.length);
     
     // Populate voice select when voices are ready
-    if (speechSynthesis.getVoices().length === 0) {
-        speechSynthesis.addEventListener('voiceschanged', populateVoiceSelect);
+    if (initialVoices.length === 0) {
+        console.log('Waiting for voices to load...');
+        speechSynthesis.addEventListener('voiceschanged', () => {
+            console.log('Voices changed event fired');
+            const voices = speechSynthesis.getVoices();
+            console.log('Voices now available:', voices.length);
+            populateVoiceSelect();
+        });
+        
+        // Fallback: try to load voices after a delay
+        setTimeout(() => {
+            const voices = speechSynthesis.getVoices();
+            console.log('Fallback voice check:', voices.length);
+            if (voices.length > 0) {
+                populateVoiceSelect();
+            }
+        }, 1000);
     } else {
+        console.log('Voices already loaded, populating select');
         populateVoiceSelect();
     }
     
