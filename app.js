@@ -430,7 +430,7 @@ function presentWord() {
     announcementEl.className = 'announcement-text listening';
     
     // Speak the word in spell bee format - simplified with fallback
-    announcementEl.textContent = `Your word is: ${currentWord.word}`;
+    announcementEl.textContent = "Your word is...";
     
     // Try to speak, but don't let it block the interface
     speakText(`Your word is ${currentWord.word}`, () => {
@@ -443,7 +443,7 @@ function presentWord() {
         announcementEl.className = 'announcement-text';
         announcementEl.textContent = "Spell the word you just heard";
         focusInput();
-    }, 2000); // 2 second delay for speech, then always proceed
+    }, 3000); // 3 second delay for speech, then always proceed
 }
 
 // Global voice settings
