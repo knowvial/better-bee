@@ -49,6 +49,25 @@
                             <option value="0">All available words</option>
                         </select>
                     </div>
+                    
+                    <!-- Mode Options -->
+                    <div class="setting-group">
+                        <label>
+                            <input type="checkbox" id="nonRepeatMode" onchange="updatePracticeSettings()">
+                            Non-Repeat Mode
+                            <small>(Skip correctly answered words)</small>
+                        </label>
+                    </div>
+                    <div class="setting-group">
+                        <label>
+                            <input type="checkbox" id="randomMode" onchange="updatePracticeSettings()">
+                            Random Mode
+                            <small>(Include all words, even mastered)</small>
+                        </label>
+                    </div>
+                    <div class="setting-group" id="remainingWordsInfo" style="display: none;">
+                        <small>Remaining words: <span id="remainingCount">0</span></small>
+                    </div>
                 </div>
 
                 <!-- Word List Upload -->
@@ -171,6 +190,7 @@
     <script src="config.js"></script>
     <!-- <script src="security-config.js"></script> <!-- Optional: Uncomment for extra security -->
     <script src="words-data.js"></script>
+    <script src="complete-words.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

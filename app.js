@@ -28,10 +28,51 @@ let sessionStats = {
     startTime: null,
     wordHistory: []
 };
+let practiceSettings = {
+    nonRepeatMode: false,
+    randomMode: false
+};
 
 // Focus management
 function focusInput() {
     document.getElementById('spellingInput').focus();
+}
+
+// Update practice settings
+function updatePracticeSettings() {
+    practiceSettings.nonRepeatMode = document.getElementById('nonRepeatMode').checked;
+    practiceSettings.randomMode = document.getElementById('randomMode').checked;
+    
+    // Disable non-repeat mode if random mode is selected
+    if (practiceSettings.randomMode) {
+        document.getElementById('nonRepeatMode').checked = false;
+        practiceSettings.nonRepeatMode = false;
+        document.getElementById('nonRepeatMode').disabled = true;
+    } else {
+        document.getElementById('nonRepeatMode').disabled = false;
+    }
+    
+    // Update remaining words count
+    updateRemainingWordsCount();
+}
+
+// Update remaining words count display
+function updateRemainingWordsCount() {
+    // Get all available words
+    const allWords = [...(window.COMPLETE_NSF_WORDS || []), ...(window.NSF_WORDS || []), ...(window.customWords || [])];
+    
+    if (practiceSettings.nonRepeatMode) {
+        // Count words that haven't been answered correctly
+        const remainingWords = allWords.filter(w => {
+            const status = practiceAlgorithm.getWordStatus(w.word);
+            return status.attempts === 0 || status.correct < status.attempts;
+        });
+        
+        document.getElementById('remainingWordsInfo').style.display = 'block';
+        document.getElementById('remainingCount').textContent = remainingWords.length;
+    } else {
+        document.getElementById('remainingWordsInfo').style.display = 'none';
+    }
 }
 
 // Function to replace target word with blanks in text
@@ -112,6 +153,16 @@ function updateWordInfo(word) {
     } else {
         wordInfoEl.style.display = 'none';
     }
+}
+
+// Fisher-Yates shuffle algorithm for proper randomization
+function fisherYatesShuffle(array) {
+    const arr = [...array]; // Create a copy
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
 }
 
 // Practice Algorithm - Smart word selection
@@ -236,7 +287,7 @@ class PracticeAlgorithm {
             const practiceList = [];
             
             const addWords = (list, count) => {
-                const shuffled = [...list].sort(() => Math.random() - 0.5);
+                const shuffled = fisherYatesShuffle(list);
                 practiceList.push(...shuffled.slice(0, count));
             };
             
@@ -255,7 +306,27 @@ class PracticeAlgorithm {
                 }
             }
             
-            return practiceList.sort(() => Math.random() - 0.5);
+            return fisherYatesShuffle(practiceList);
+        }
+        
+        // Check for non-repeat mode
+        if (practiceSettings.nonRepeatMode) {
+            // In non-repeat mode, exclude all correctly answered words
+            const practiceable = allWords.filter(w => {
+                const status = this.getWordStatus(w.word);
+                // Include only words that haven't been answered correctly or were answered incorrectly last time
+                return status.attempts === 0 || status.correct < status.attempts;
+            });
+            
+            const shuffled = fisherYatesShuffle(practiceable);
+            return maxWords === 0 ? shuffled : shuffled.slice(0, maxWords);
+        }
+        
+        // Check for random mode
+        if (practiceSettings.randomMode) {
+            // In random mode, include all words regardless of status
+            const shuffled = fisherYatesShuffle(allWords);
+            return maxWords === 0 ? shuffled : shuffled.slice(0, maxWords);
         }
         
         // Default: random selection, excluding mastered words
@@ -264,7 +335,7 @@ class PracticeAlgorithm {
             return status.status !== 'mastered' || status.attempts === 0;
         });
         
-        const shuffled = practiceable.sort(() => Math.random() - 0.5);
+        const shuffled = fisherYatesShuffle(practiceable);
         return maxWords === 0 ? shuffled : shuffled.slice(0, maxWords);
     }
 }
@@ -1031,6 +1102,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Load word count preference
     loadWordCountPreference();
+    
+    // Update remaining words count
+    updateRemainingWordsCount();
     
     // Load saved preferences
     const savedService = localStorage.getItem('voiceService');

@@ -111,6 +111,7 @@ header h1 {
     align-items: center;
     gap: 15px;
     flex-wrap: wrap;
+    margin-bottom: 15px;
 }
 
 .setting-group label {
@@ -118,6 +119,23 @@ header h1 {
     color: var(--text-primary);
     min-width: 200px;
     text-align: right;
+}
+
+.setting-group input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.setting-group small {
+    display: block;
+    font-size: 0.85em;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+#remainingWordsInfo {
+    text-align: center;
+    color: #6b7280;
+    font-style: italic;
 }
 
 #wordCount {

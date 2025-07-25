@@ -130,7 +130,9 @@ const NSF_WORDS = [
 
 // Function to get all words
 function getAllWords() {
-    return [...NSF_WORDS, ...customWords];
+    // Use COMPLETE_NSF_WORDS if available, otherwise fall back to NSF_WORDS
+    const baseWords = window.COMPLETE_NSF_WORDS ? window.COMPLETE_NSF_WORDS : NSF_WORDS;
+    return [...baseWords, ...customWords];
 }
 
 // Custom words array (populated when users upload files)
