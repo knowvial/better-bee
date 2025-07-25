@@ -131,7 +131,25 @@ const NSF_WORDS = [
 // Function to get all words
 function getAllWords() {
     // Use COMPLETE_NSF_WORDS if available, otherwise fall back to NSF_WORDS
-    const baseWords = (typeof COMPLETE_NSF_WORDS !== 'undefined') ? COMPLETE_NSF_WORDS : NSF_WORDS;
+    let baseWords;
+    
+    if (typeof COMPLETE_NSF_WORDS !== 'undefined') {
+        // COMPLETE_NSF_WORDS is an array of strings, convert to objects
+        baseWords = COMPLETE_NSF_WORDS.map(word => {
+            if (typeof word === 'string') {
+                return {
+                    word: word,
+                    definition: 'Definition not available',
+                    origin: 'Origin not specified',
+                    sentence: `The word "${word}" is used in spelling practice.`
+                };
+            }
+            return word; // Already an object
+        });
+    } else {
+        baseWords = NSF_WORDS;
+    }
+    
     return [...baseWords, ...customWords];
 }
 
