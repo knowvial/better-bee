@@ -366,6 +366,8 @@ function loadWordCountPreference() {
 
 // Start practice session
 function startPractice(mode) {
+    console.log('🚀 Starting practice with mode:', mode);
+    
     currentMode = mode;
     currentWordIndex = 0;
     sessionStats = {
@@ -378,8 +380,15 @@ function startPractice(mode) {
     
     // Get word list based on mode and selected count
     const allWords = getAllWords();
+    console.log('📚 Total words available:', allWords.length);
+    console.log('📚 First few words:', allWords.slice(0, 3));
+    
     const selectedWordCount = getSelectedWordCount();
+    console.log('🔢 Selected word count:', selectedWordCount);
+    
     wordList = practiceAlgorithm.selectWords(allWords, mode, selectedWordCount);
+    console.log('📝 Generated word list length:', wordList.length);
+    console.log('📝 First few selected words:', wordList.slice(0, 3));
     
     if (wordList.length === 0) {
         alert('No words available for this practice mode. Try adding more words or using a different mode.');
@@ -406,12 +415,17 @@ function startPractice(mode) {
 
 // Present current word
 function presentWord() {
+    console.log('📖 presentWord called, currentWordIndex:', currentWordIndex, 'wordList.length:', wordList.length);
+    
     if (currentWordIndex >= wordList.length) {
         endPractice();
         return;
     }
     
     currentWord = wordList[currentWordIndex];
+    console.log('🎯 currentWord set to:', currentWord);
+    console.log('🎯 currentWord type:', typeof currentWord);
+    console.log('🎯 currentWord.word:', currentWord?.word);
     
     // Reset UI
     document.getElementById('spellingInput').value = '';
@@ -432,8 +446,12 @@ function presentWord() {
     // Speak the word in spell bee format - simplified with fallback
     announcementEl.textContent = "Your word is...";
     
+    // Check if currentWord has the expected structure
+    const wordToSpeak = currentWord?.word || currentWord;
+    console.log('🗣️ Word to speak:', wordToSpeak);
+    
     // Try to speak, but don't let it block the interface
-    speakText(`Your word is ${currentWord.word}`, () => {
+    speakText(`Your word is ${wordToSpeak}`, () => {
         // Speech finished successfully
         console.log('Speech completed successfully');
     });
