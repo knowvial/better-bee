@@ -463,60 +463,128 @@ function speakText(text, callback) {
     speakWithBrowserAPI(text, callback);
 }
 
-// Browser Speech Synthesis API - Simplified
+// Browser Speech Synthesis API - With Better Debugging
 function speakWithBrowserAPI(text, callback) {
-    console.log('speakWithBrowserAPI called with:', text);
+    console.log('🔊 speakWithBrowserAPI called with:', text);
     
     if ('speechSynthesis' in window) {
         try {
+            console.log('✅ speechSynthesis is available');
+            
             // Cancel any ongoing speech
             speechSynthesis.cancel();
             
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            utterance.rate = 0.8;
-            utterance.pitch = 1.0;
-            utterance.volume = 1.0;
-            
-            // Simple voice assignment
-            const voices = speechSynthesis.getVoices();
-            if (voices.length > 0) {
-                // Find a good English voice
-                const englishVoice = voices.find(voice => 
-                    voice.lang.startsWith('en') && 
-                    (voice.name.includes('Female') || voice.name.includes('Male'))
-                ) || voices.find(voice => voice.lang.startsWith('en')) || voices[0];
+            // Wait a moment for cancel to complete
+            setTimeout(() => {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.8;  
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
                 
-                utterance.voice = englishVoice;
-                console.log('Using voice:', englishVoice.name);
-            }
-            
-            // Always execute callback after reasonable time
-            if (callback) {
-                let callbackCalled = false;
-                const callbackOnce = () => {
-                    if (!callbackCalled) {
-                        callbackCalled = true;
-                        callback();
+                console.log('📢 Created utterance for:', text);
+                
+                // Get voices with more debugging
+                let voices = speechSynthesis.getVoices();
+                console.log('🎤 Available voices:', voices.length);
+                
+                if (voices.length === 0) {
+                    console.log('⚠️ No voices available, forcing voice load...');
+                    // Force voice loading
+                    speechSynthesis.addEventListener('voiceschanged', () => {
+                        voices = speechSynthesis.getVoices();
+                        console.log('🎤 Voices loaded after event:', voices.length);
+                        if (voices.length > 0) {
+                            speakNow();
+                        } else {
+                            console.error('❌ Still no voices after voiceschanged event');
+                            speakWithoutVoice();
+                        }
+                    }, { once: true });
+                    
+                    // Also try speaking without specific voice after a delay
+                    setTimeout(speakWithoutVoice, 1000);
+                    return;
+                }
+                
+                function speakNow() {
+                    if (voices.length > 0) {
+                        // Find best voice
+                        const englishVoice = voices.find(voice => 
+                            voice.lang.startsWith('en') && 
+                            !voice.name.toLowerCase().includes('android')
+                        ) || voices.find(voice => voice.lang.startsWith('en')) || voices[0];
+                        
+                        if (englishVoice) {
+                            utterance.voice = englishVoice;
+                            console.log('🎯 Using voice:', englishVoice.name, '(', englishVoice.lang, ')');
+                        }
                     }
-                };
+                    
+                    setupCallbacks();
+                    
+                    console.log('🚀 Attempting to speak:', text);
+                    speechSynthesis.speak(utterance);
+                    
+                    // Check if it's actually speaking
+                    setTimeout(() => {
+                        if (speechSynthesis.speaking) {
+                            console.log('✅ Speech is active');
+                        } else {
+                            console.warn('⚠️ Speech doesn\'t seem to be active');
+                        }
+                    }, 100);
+                }
                 
-                utterance.onend = callbackOnce;
-                utterance.onerror = callbackOnce;
+                function speakWithoutVoice() {
+                    console.log('🔄 Trying to speak without specific voice...');
+                    setupCallbacks();
+                    speechSynthesis.speak(utterance);
+                }
                 
-                // Safety timeout
-                setTimeout(callbackOnce, 3000);
-            }
-            
-            console.log('Speaking:', text);
-            speechSynthesis.speak(utterance);
+                function setupCallbacks() {
+                    if (callback) {
+                        let callbackCalled = false;
+                        const callbackOnce = () => {
+                            if (!callbackCalled) {
+                                callbackCalled = true;
+                                console.log('✅ Speech callback executed');
+                                callback();
+                            }
+                        };
+                        
+                        utterance.onstart = () => console.log('🎵 Speech started');
+                        utterance.onend = () => {
+                            console.log('🎵 Speech ended');
+                            callbackOnce();
+                        };
+                        utterance.onerror = (error) => {
+                            console.error('❌ Speech error:', error);
+                            callbackOnce();
+                        };
+                        
+                        // Safety timeout
+                        setTimeout(() => {
+                            console.warn('⏰ Speech timeout reached');
+                            callbackOnce();
+                        }, 5000);
+                    }
+                }
+                
+                if (voices.length > 0) {
+                    speakNow();
+                } else {
+                    speakWithoutVoice();
+                }
+                
+            }, 100); // Small delay after cancel
             
         } catch (error) {
-            console.error('Speech error:', error);
+            console.error('❌ Speech error:', error);
             if (callback) callback();
         }
     } else {
-        console.warn('Speech synthesis not supported');
+        console.error('❌ Speech synthesis not supported in this browser');
         if (callback) callback();
     }
 }
@@ -761,6 +829,14 @@ function updateVoice() {
 function repeatWord() {
     speakText(currentWord.word, () => {
         focusInput();
+    });
+}
+
+function testSpeech() {
+    console.log('🧪 Testing speech system...');
+    speakText("Hello, this is a speech test", () => {
+        console.log('🧪 Speech test completed');
+        alert('Speech test completed - check console for details');
     });
 }
 
