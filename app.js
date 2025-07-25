@@ -58,8 +58,8 @@ function updatePracticeSettings() {
 
 // Update remaining words count display
 function updateRemainingWordsCount() {
-    // Get all available words
-    const allWords = [...(window.COMPLETE_NSF_WORDS || []), ...(window.NSF_WORDS || []), ...(window.customWords || [])];
+    // Get all available words using the same logic as getAllWords
+    const allWords = getAllWords();
     
     if (practiceSettings.nonRepeatMode) {
         // Count words that haven't been answered correctly

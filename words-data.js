@@ -131,7 +131,7 @@ const NSF_WORDS = [
 // Function to get all words
 function getAllWords() {
     // Use COMPLETE_NSF_WORDS if available, otherwise fall back to NSF_WORDS
-    const baseWords = window.COMPLETE_NSF_WORDS ? window.COMPLETE_NSF_WORDS : NSF_WORDS;
+    const baseWords = (typeof COMPLETE_NSF_WORDS !== 'undefined') ? COMPLETE_NSF_WORDS : NSF_WORDS;
     return [...baseWords, ...customWords];
 }
 
