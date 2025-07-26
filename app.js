@@ -233,9 +233,6 @@ class PracticeAlgorithm {
     }
     
     selectWords(allWords, mode, maxWords = 50) {
-        console.log(`🎯 Selecting words for mode: ${mode}, maxWords: ${maxWords}`);
-        console.log(`🎯 Practice settings:`, practiceSettings);
-        console.log(`🎯 Total words available:`, allWords.length);
         if (mode === 'review') {
             // Include failed words (priority) and recovering words (lower priority)
             const failedWords = allWords.filter(w => {
@@ -314,27 +311,13 @@ class PracticeAlgorithm {
         
         // Check for non-repeat mode
         if (practiceSettings.nonRepeatMode) {
-            console.log('🔄 Non-repeat mode filtering...');
-            
             // In non-repeat mode, exclude all correctly answered words
             const practiceable = allWords.filter(w => {
                 const status = this.getWordStatus(w.word);
-                const shouldInclude = status.attempts === 0 || status.correct < status.attempts;
-                
-                // Debug first few words to see what's happening
-                if (allWords.indexOf(w) < 10) {
-                    console.log(`🔍 Word: ${w.word}, Status: ${JSON.stringify(status)}, Include: ${shouldInclude}`);
-                }
-                
-                return shouldInclude;
+                return status.attempts === 0 || status.correct < status.attempts;
             });
             
-            console.log(`🔄 Non-repeat mode: ${allWords.length} total → ${practiceable.length} practiceable`);
-            console.log('🔄 First 5 practiceable words:', practiceable.slice(0, 5).map(w => w.word));
-            
             const shuffled = fisherYatesShuffle(practiceable);
-            console.log('🔄 First 5 after shuffle:', shuffled.slice(0, 5).map(w => w.word));
-            
             return maxWords === 0 ? shuffled : shuffled.slice(0, maxWords);
         }
         
@@ -382,8 +365,6 @@ function loadWordCountPreference() {
 
 // Start practice session
 function startPractice(mode) {
-    console.log('🚀 Starting practice with mode:', mode);
-    
     currentMode = mode;
     currentWordIndex = 0;
     sessionStats = {
@@ -396,15 +377,8 @@ function startPractice(mode) {
     
     // Get word list based on mode and selected count
     const allWords = getAllWords();
-    console.log('📚 Total words available:', allWords.length);
-    console.log('📚 First few words:', allWords.slice(0, 3));
-    
     const selectedWordCount = getSelectedWordCount();
-    console.log('🔢 Selected word count:', selectedWordCount);
-    
     wordList = practiceAlgorithm.selectWords(allWords, mode, selectedWordCount);
-    console.log('📝 Generated word list length:', wordList.length);
-    console.log('📝 First few selected words:', wordList.slice(0, 3));
     
     if (wordList.length === 0) {
         alert('No words available for this practice mode. Try adding more words or using a different mode.');
@@ -431,17 +405,12 @@ function startPractice(mode) {
 
 // Present current word
 function presentWord() {
-    console.log('📖 presentWord called, currentWordIndex:', currentWordIndex, 'wordList.length:', wordList.length);
-    
     if (currentWordIndex >= wordList.length) {
         endPractice();
         return;
     }
     
     currentWord = wordList[currentWordIndex];
-    console.log('🎯 currentWord set to:', currentWord);
-    console.log('🎯 currentWord type:', typeof currentWord);
-    console.log('🎯 currentWord.word:', currentWord?.word);
     
     // Reset UI
     document.getElementById('spellingInput').value = '';
@@ -464,12 +433,10 @@ function presentWord() {
     
     // Check if currentWord has the expected structure
     const wordToSpeak = currentWord?.word || currentWord;
-    console.log('🗣️ Word to speak:', wordToSpeak);
     
     // Try to speak, but don't let it block the interface
     speakText(`Your word is ${wordToSpeak}`, () => {
         // Speech finished successfully
-        console.log('Speech completed successfully');
     });
     
     // Always proceed to input after a short delay, regardless of speech
@@ -491,19 +458,14 @@ let databaseEnabled = false;
 
 // Text to speech - Simplified to just use browser API
 function speakText(text, callback) {
-    console.log('speakText called:', text);
-    
     // Just use browser API - it's the most reliable
     speakWithBrowserAPI(text, callback);
 }
 
 // Browser Speech Synthesis API - With Better Debugging
 function speakWithBrowserAPI(text, callback) {
-    console.log('🔊 speakWithBrowserAPI called with:', text);
-    
     if ('speechSynthesis' in window) {
         try {
-            console.log('✅ speechSynthesis is available');
             
             // Cancel any ongoing speech
             speechSynthesis.cancel();
@@ -959,13 +921,18 @@ function showFeedback(isCorrect, correctSpelling) {
     if (isCorrect) {
         feedbackContent.innerHTML = '✓ Correct! Well done!';
         speakText('Correct! Well done!');
+        
+        // Auto-advance to next word after 2 seconds
+        setTimeout(() => {
+            nextWord();
+        }, 2000);
     } else {
         feedbackContent.innerHTML = `✗ Incorrect. The correct spelling is: ${correctSpelling}`;
         speakText(`Incorrect. The correct spelling is: ${currentWord.word.split('').join(' ')}`);
+        
+        // Show next button for incorrect answers
+        document.getElementById('nextBtn').style.display = 'inline-block';
     }
-    
-    // Show next button
-    document.getElementById('nextBtn').style.display = 'inline-block';
 }
 
 // Navigation

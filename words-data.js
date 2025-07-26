@@ -133,14 +133,7 @@ function getAllWords() {
     // Use COMPLETE_NSF_WORDS if available, otherwise fall back to NSF_WORDS
     let baseWords;
     
-    console.log('🔍 getAllWords called');
-    console.log('🔍 COMPLETE_NSF_WORDS type:', typeof COMPLETE_NSF_WORDS);
-    console.log('🔍 COMPLETE_NSF_WORDS available:', typeof COMPLETE_NSF_WORDS !== 'undefined');
-    
     if (typeof COMPLETE_NSF_WORDS !== 'undefined') {
-        console.log('🔍 COMPLETE_NSF_WORDS length:', COMPLETE_NSF_WORDS.length);
-        console.log('🔍 First few COMPLETE_NSF_WORDS:', COMPLETE_NSF_WORDS.slice(0, 3));
-        
         // COMPLETE_NSF_WORDS is an array of strings, convert to objects
         baseWords = COMPLETE_NSF_WORDS.map(word => {
             if (typeof word === 'string') {
@@ -153,19 +146,11 @@ function getAllWords() {
             }
             return word; // Already an object
         });
-        
-        console.log('🔍 Converted baseWords length:', baseWords.length);
-        console.log('🔍 First converted word:', baseWords[0]);
     } else {
-        console.log('🔍 Using NSF_WORDS fallback, length:', NSF_WORDS.length);
         baseWords = NSF_WORDS;
     }
     
-    const result = [...baseWords, ...customWords];
-    console.log('🔍 Final getAllWords result length:', result.length);
-    console.log('🔍 Final result first word:', result[0]);
-    
-    return result;
+    return [...baseWords, ...customWords];
 }
 
 // Custom words array (populated when users upload files)
