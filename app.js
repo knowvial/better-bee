@@ -233,6 +233,9 @@ class PracticeAlgorithm {
     }
     
     selectWords(allWords, mode, maxWords = 50) {
+        console.log(`🎯 Selecting words for mode: ${mode}, maxWords: ${maxWords}`);
+        console.log(`🎯 Practice settings:`, practiceSettings);
+        console.log(`🎯 Total words available:`, allWords.length);
         if (mode === 'review') {
             // Include failed words (priority) and recovering words (lower priority)
             const failedWords = allWords.filter(w => {
@@ -311,14 +314,27 @@ class PracticeAlgorithm {
         
         // Check for non-repeat mode
         if (practiceSettings.nonRepeatMode) {
+            console.log('🔄 Non-repeat mode filtering...');
+            
             // In non-repeat mode, exclude all correctly answered words
             const practiceable = allWords.filter(w => {
                 const status = this.getWordStatus(w.word);
-                // Include only words that haven't been answered correctly or were answered incorrectly last time
-                return status.attempts === 0 || status.correct < status.attempts;
+                const shouldInclude = status.attempts === 0 || status.correct < status.attempts;
+                
+                // Debug first few words to see what's happening
+                if (allWords.indexOf(w) < 10) {
+                    console.log(`🔍 Word: ${w.word}, Status: ${JSON.stringify(status)}, Include: ${shouldInclude}`);
+                }
+                
+                return shouldInclude;
             });
             
+            console.log(`🔄 Non-repeat mode: ${allWords.length} total → ${practiceable.length} practiceable`);
+            console.log('🔄 First 5 practiceable words:', practiceable.slice(0, 5).map(w => w.word));
+            
             const shuffled = fisherYatesShuffle(practiceable);
+            console.log('🔄 First 5 after shuffle:', shuffled.slice(0, 5).map(w => w.word));
+            
             return maxWords === 0 ? shuffled : shuffled.slice(0, maxWords);
         }
         
@@ -1250,3 +1266,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         responsiveVoice.setDefaultVoice("US English Female");
     }
 });
+
+// Debug function to clear word status (for testing)
+function clearWordStatus() {
+    localStorage.removeItem('wordProgress');
+    practiceAlgorithm.wordStatus = {};
+    console.log('🔄 Word status cleared - try starting practice again');
+}
+
+// Make it globally available for testing
+window.clearWordStatus = clearWordStatus;
