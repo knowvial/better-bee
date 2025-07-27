@@ -456,10 +456,37 @@ let elevenLabsApiKey = null; // User can add their API key
 let supabase = null;
 let databaseEnabled = false;
 
-// Text to speech - Simplified to just use browser API
+// Global speech control
+let lastSpeechTime = 0;
+let speechQueue = [];
+let isSpeaking = false;
+
+// Text to speech - Route to appropriate service based on user selection
 function speakText(text, callback) {
-    // Just use browser API - it's the most reliable
-    speakWithBrowserAPI(text, callback);
+    console.log('🎤 Speaking with service:', currentVoiceService);
+    
+    // Prevent rapid speech calls (Chrome crash prevention)
+    const now = Date.now();
+    if (now - lastSpeechTime < 200) {
+        console.log('⏸️ Throttling speech to prevent crashes');
+        setTimeout(() => speakText(text, callback), 300);
+        return;
+    }
+    lastSpeechTime = now;
+    
+    // Route to the appropriate voice service
+    switch (currentVoiceService) {
+        case 'elevenlabs':
+            speakWithElevenLabs(text, callback);
+            break;
+        case 'responsivevoice':
+            speakWithResponsiveVoice(text, callback);
+            break;
+        case 'browser':
+        default:
+            speakWithBrowserAPI(text, callback);
+            break;
+    }
 }
 
 // Browser Speech Synthesis API - With Better Debugging
@@ -469,6 +496,10 @@ function speakWithBrowserAPI(text, callback) {
             
             // Cancel any ongoing speech
             speechSynthesis.cancel();
+            
+            // Detect browser
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            const isChrome = /chrome/i.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
             
             // Wait a moment for cancel to complete
             setTimeout(() => {
@@ -484,29 +515,63 @@ function speakWithBrowserAPI(text, callback) {
                 let voices = speechSynthesis.getVoices();
                 console.log('🎤 Available voices:', voices.length);
                 
+                // Safari fix: needs a user interaction first
+                if (isSafari && voices.length === 0) {
+                    console.log('🔧 Safari detected - using fallback');
+                    // For Safari, just speak without selecting a specific voice
+                    speakWithoutVoice();
+                    return;
+                }
+                
                 if (voices.length === 0) {
                     console.log('⚠️ No voices available, forcing voice load...');
                     // Force voice loading
-                    speechSynthesis.addEventListener('voiceschanged', () => {
+                    let voiceLoadAttempts = 0;
+                    const maxAttempts = 3;
+                    
+                    const tryLoadVoices = () => {
                         voices = speechSynthesis.getVoices();
-                        console.log('🎤 Voices loaded after event:', voices.length);
+                        voiceLoadAttempts++;
+                        
                         if (voices.length > 0) {
+                            console.log('🎤 Voices loaded after', voiceLoadAttempts, 'attempts');
                             speakNow();
+                        } else if (voiceLoadAttempts < maxAttempts) {
+                            setTimeout(tryLoadVoices, 200);
                         } else {
-                            console.error('❌ Still no voices after voiceschanged event');
+                            console.log('⚠️ Using fallback after', maxAttempts, 'attempts');
                             speakWithoutVoice();
                         }
-                    }, { once: true });
+                    };
                     
-                    // Also try speaking without specific voice after a delay
-                    setTimeout(speakWithoutVoice, 1000);
+                    // Start trying to load voices
+                    setTimeout(tryLoadVoices, 100);
                     return;
                 }
                 
                 function speakNow() {
                     if (voices.length > 0) {
-                        // Find best voice
-                        const englishVoice = voices.find(voice => 
+                        // Find best voice based on browser
+                        let preferredVoice = null;
+                        
+                        if (isSafari) {
+                            // Safari prefers specific voices
+                            preferredVoice = voices.find(voice => 
+                                voice.name.includes('Samantha') || 
+                                voice.name.includes('Alex') ||
+                                voice.name.includes('Victoria') ||
+                                voice.name.includes('Karen')
+                            );
+                        } else if (isChrome) {
+                            // Chrome works best with Google voices
+                            preferredVoice = voices.find(voice => 
+                                voice.name.includes('Google') && 
+                                voice.lang.startsWith('en-US')
+                            );
+                        }
+                        
+                        // Fallback to any English voice
+                        const englishVoice = preferredVoice || voices.find(voice => 
                             voice.lang.startsWith('en') && 
                             !voice.name.toLowerCase().includes('android')
                         ) || voices.find(voice => voice.lang.startsWith('en')) || voices[0];
@@ -519,8 +584,16 @@ function speakWithBrowserAPI(text, callback) {
                     
                     setupCallbacks();
                     
-                    console.log('🚀 Attempting to speak:', text);
-                    speechSynthesis.speak(utterance);
+                    // Chrome fix: Prevent multiple rapid speech calls
+                    if (isChrome && speechSynthesis.speaking) {
+                        console.log('⏸️ Chrome: Waiting for previous speech to finish');
+                        setTimeout(() => {
+                            speechSynthesis.speak(utterance);
+                        }, 300);
+                    } else {
+                        console.log('🚀 Attempting to speak:', text);
+                        speechSynthesis.speak(utterance);
+                    }
                     
                     // Check if it's actually speaking
                     setTimeout(() => {
@@ -535,7 +608,15 @@ function speakWithBrowserAPI(text, callback) {
                 function speakWithoutVoice() {
                     console.log('🔄 Trying to speak without specific voice...');
                     setupCallbacks();
-                    speechSynthesis.speak(utterance);
+                    
+                    // Safari fix: needs a small delay
+                    if (isSafari) {
+                        setTimeout(() => {
+                            speechSynthesis.speak(utterance);
+                        }, 50);
+                    } else {
+                        speechSynthesis.speak(utterance);
+                    }
                 }
                 
                 function setupCallbacks() {
@@ -602,6 +683,8 @@ function speakWithResponsiveVoice(text, callback) {
 
 // ElevenLabs API (Premium quality, free tier: 10,000 chars/month)
 async function speakWithElevenLabs(text, callback) {
+    console.log('🎯 ElevenLabs function called for text:', text);
+    
     if (!elevenLabsApiKey) {
         // Prompt user for API key on first use
         const apiKey = prompt('Enter your ElevenLabs API key (get free at elevenlabs.io):');
@@ -655,7 +738,9 @@ async function speakWithElevenLabs(text, callback) {
             
             audio.play();
         } else {
-            throw new Error('ElevenLabs API error');
+            const errorText = await response.text();
+            console.error('ElevenLabs API error:', response.status, errorText);
+            throw new Error(`ElevenLabs API error: ${response.status} - ${errorText}`);
         }
     } catch (error) {
         console.error('ElevenLabs error:', error);
@@ -665,28 +750,53 @@ async function speakWithElevenLabs(text, callback) {
 
 // Find the best available voice
 function findBestVoice(voices) {
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isChrome = /chrome/i.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    
     // Priority list of good voices
-    const preferredVoices = [
-        'Samantha',  // macOS - very natural
-        'Alex',      // macOS - clear and natural
-        'Victoria',  // macOS
-        'Karen',     // macOS
-        'Tessa',     // macOS
-        'Microsoft Zira - English (United States)',
-        'Microsoft David - English (United States)', 
-        'Google US English'
-    ];
+    let preferredVoices = [];
+    
+    if (isSafari) {
+        // Safari works best with system voices
+        preferredVoices = [
+            'Samantha',  // macOS - very natural
+            'Alex',      // macOS - clear and natural
+            'Victoria',  // macOS
+            'Karen',     // macOS
+            'Tessa',     // macOS
+            'Daniel',    // macOS British
+            'Moira',     // macOS Irish
+            'Rishi'      // macOS Indian
+        ];
+    } else if (isChrome) {
+        // Chrome works best with Google voices
+        preferredVoices = [
+            'Google US English',
+            'Google UK English Female',
+            'Google UK English Male',
+            'Microsoft Zira - English (United States)',
+            'Microsoft David - English (United States)'
+        ];
+    } else {
+        // Other browsers
+        preferredVoices = [
+            'Microsoft Zira - English (United States)',
+            'Microsoft David - English (United States)', 
+            'Google US English',
+            'Samantha',
+            'Alex'
+        ];
+    }
     
     // Find a preferred voice
     for (const preferred of preferredVoices) {
-        const voice = voices.find(v => v.name === preferred);
+        const voice = voices.find(v => v.name.includes(preferred));
         if (voice) return voice;
     }
     
     // If no preferred voice found, use any clear US English voice
     return voices.find(voice => 
         voice.lang === 'en-US' && 
-        !voice.name.toLowerCase().includes('google') &&
         !voice.name.toLowerCase().includes('android')
     ) || voices.find(voice => voice.lang.startsWith('en'));
 }
@@ -779,6 +889,8 @@ function populateVoiceSelect() {
 function switchVoiceService() {
     const serviceSelect = document.getElementById('voiceService');
     currentVoiceService = serviceSelect.value;
+    
+    console.log('🔊 Switching voice service to:', currentVoiceService);
     
     // Populate voices for the selected service
     populateVoiceSelect();
