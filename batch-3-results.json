@@ -1,0 +1,606 @@
+{
+  "enrichedWords": [
+    {
+      "word": "crystal",
+      "definition": "A solid composed of an array of atoms or molecules possessing long-range order and arranged in a pattern which is periodic in three dimensions.",
+      "origin": "",
+      "sentence": "\"Do I make myself clear?\" / \"Crystal.\""
+    },
+    {
+      "word": "cub",
+      "definition": "A young fox.",
+      "origin": "",
+      "sentence": "The word \"cub\" means a young fox.."
+    },
+    {
+      "word": "cubic",
+      "definition": "A cubic curve.",
+      "origin": "",
+      "sentence": "cubic foot"
+    },
+    {
+      "word": "cultivation",
+      "definition": "The art or act of cultivating; improvement of land for or by agriculture",
+      "origin": "",
+      "sentence": "The heavy cultivation of the hillside led to soil erosion."
+    },
+    {
+      "word": "curbstone",
+      "definition": "A paving stone that forms part of a kerb",
+      "origin": "",
+      "sentence": "The word \"curbstone\" means a paving stone that forms part of a kerb."
+    },
+    {
+      "word": "Dallas",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "darkness",
+      "definition": "The state of being dark; lack of light.",
+      "origin": "",
+      "sentence": "The darkness of the room made it difficult to see."
+    },
+    {
+      "word": "dashing",
+      "definition": "To run quickly or for a short distance.",
+      "origin": "",
+      "sentence": "He dashed across the field."
+    },
+    {
+      "word": "dawdler",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "dawn",
+      "definition": "The morning twilight period immediately before sunrise.",
+      "origin": "",
+      "sentence": "She rose before dawn to meet the train."
+    },
+    {
+      "word": "deadened",
+      "definition": "To render less lively; to diminish; to muffle.",
+      "origin": "",
+      "sentence": "to deaden a wall or a floor"
+    },
+    {
+      "word": "declaim",
+      "definition": "To object to something vociferously; to rail against in speech.",
+      "origin": "",
+      "sentence": "The students declaim twice a week."
+    },
+    {
+      "word": "decompose",
+      "definition": "To separate or break down something into its components; to disintegrate or fragment",
+      "origin": "",
+      "sentence": "The word \"decompose\" means to separate or break down something into its components; to disintegrate or fragment."
+    },
+    {
+      "word": "decorative",
+      "definition": "A plant, tile, etc. intended for use as decoration.",
+      "origin": "",
+      "sentence": "The word \"decorative\" means a plant, tile, etc. intended for use as decoration.."
+    },
+    {
+      "word": "decorous",
+      "definition": "Marked by proper behavior.",
+      "origin": "",
+      "sentence": "The word \"decorous\" means marked by proper behavior.."
+    },
+    {
+      "word": "decoy",
+      "definition": "A person or object meant to lure somebody into danger.",
+      "origin": "",
+      "sentence": "to decoy troops into an ambush; to decoy ducks into a net"
+    },
+    {
+      "word": "deem",
+      "definition": "An opinion, a judgment, a surmise.",
+      "origin": "",
+      "sentence": "She deemed his efforts insufficient."
+    },
+    {
+      "word": "defeat",
+      "definition": "To overcome in battle or contest.",
+      "origin": "",
+      "sentence": "Wellington defeated Napoleon at Waterloo."
+    },
+    {
+      "word": "defectoscope",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "defensor",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "delay",
+      "definition": "A period of time before an event occurs; the act of delaying; procrastination; lingering inactivity.",
+      "origin": "",
+      "sentence": "the delay before the echo of a sound"
+    },
+    {
+      "word": "depose",
+      "definition": "To put down; to lay down; to deposit; to lay aside; to put away.",
+      "origin": "",
+      "sentence": "A deposed monarch may go into exile as pretender to the lost throne, hoping to be restored in a subsequent revolution."
+    },
+    {
+      "word": "deprogram",
+      "definition": "To counteract the effects of previous programming or brainwashing, especially in an attempt to persuade (a person) to abandon allegiance to a cult.",
+      "origin": "",
+      "sentence": "The word \"deprogram\" means to counteract the effects of previous programming or brainwashing, especially in an attempt to persuade (a person) to abandon allegiance to a cult.."
+    },
+    {
+      "word": "derailment",
+      "definition": "The action of a locomotive or train leaving the rails along which it runs.",
+      "origin": "",
+      "sentence": "The word \"derailment\" means the action of a locomotive or train leaving the rails along which it runs.."
+    },
+    {
+      "word": "deserter",
+      "definition": "A person who has physically removed him- or herself from the control or direction of a military or naval unit with the intention of permanently leaving",
+      "origin": "",
+      "sentence": "The word \"deserter\" means a person who has physically removed him- or herself from the control or direction of a military or naval unit with the intention of permanently leaving."
+    },
+    {
+      "word": "destination",
+      "definition": "The act of destining or appointing.",
+      "origin": "",
+      "sentence": "The word \"destination\" means the act of destining or appointing.."
+    },
+    {
+      "word": "destructible",
+      "definition": "Liable to destruction; capable of being destroyed.",
+      "origin": "",
+      "sentence": "The word \"destructible\" means liable to destruction; capable of being destroyed.."
+    },
+    {
+      "word": "detachment",
+      "definition": "The action of detaching; separation.",
+      "origin": "",
+      "sentence": "The word \"detachment\" means the action of detaching; separation.."
+    },
+    {
+      "word": "detective",
+      "definition": "(law enforcement) A police officer who looks for evidence as part of solving a crime; an investigator.",
+      "origin": "",
+      "sentence": "The word \"detective\" means (law enforcement) a police officer who looks for evidence as part of solving a crime; an investigator.."
+    },
+    {
+      "word": "devastation",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "devil",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "devise",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "devouring",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "dewdrop",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "dewfall",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "dewy",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "diagnosis",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "diatomic",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "digest",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "digit",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "dilate",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "dingo",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "diplomat",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "director",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "disappointed",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "disapprove",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "discipline",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "disdain",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "disease",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "disguise",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "dissent",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "distal",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "distemper",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "distinct",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "diverting",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "divine",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "Dixiecrat",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "docudrama",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "dogfight",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "dominion",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "doodlebug",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "down",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "downburst",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "dreary",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "dribble",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "druggist",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "druid",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "duel",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "duet",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "dullard",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "dumplings",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "duplex",
+      "definition": "A house made up of two dwelling units.",
+      "origin": "",
+      "sentence": "duplex telegraphy"
+    },
+    {
+      "word": "duplicate",
+      "definition": "One that resembles or corresponds to another; an identical copy.",
+      "origin": "",
+      "sentence": "This is a duplicate, but a very good replica."
+    },
+    {
+      "word": "dynamic",
+      "definition": "A characteristic or manner of an interaction; a behavior.",
+      "origin": "",
+      "sentence": "Watch the dynamic between the husband and wife when they disagree."
+    },
+    {
+      "word": "earlyish",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "earnest",
+      "definition": "Gravity; serious purpose; earnestness.",
+      "origin": "",
+      "sentence": "earnest prayers"
+    },
+    {
+      "word": "easel",
+      "definition": "An upright frame, typically on three legs, for displaying or supporting something, such as an artist's canvas.",
+      "origin": "",
+      "sentence": "The word \"easel\" means an upright frame, typically on three legs, for displaying or supporting something, such as an artist's canvas.."
+    },
+    {
+      "word": "eclipse",
+      "definition": "An alignment of astronomical objects whereby one object comes between the observer (or notional observer) and another object, thus obscuring the latter.",
+      "origin": "",
+      "sentence": "The Moon eclipsed the Sun."
+    },
+    {
+      "word": "economics",
+      "definition": "The study of resource allocation, distribution and consumption; of capital and investment; and of management of the factors of production.",
+      "origin": "",
+      "sentence": "The word \"economics\" means the study of resource allocation, distribution and consumption; of capital and investment; and of management of the factors of production.."
+    },
+    {
+      "word": "edict",
+      "definition": "A proclamation of law or other authoritative command.",
+      "origin": "",
+      "sentence": "The word \"edict\" means a proclamation of law or other authoritative command.."
+    },
+    {
+      "word": "elastic",
+      "definition": "An elastic material used in clothing, particularly in waistbands and cuffs.",
+      "origin": "",
+      "sentence": "running shorts use elastic to eliminate the need for a belt"
+    },
+    {
+      "word": "electorate",
+      "definition": "The dominion of an Elector in the Holy Roman Empire.",
+      "origin": "",
+      "sentence": "The votes have been counted and the electorate has spoken."
+    },
+    {
+      "word": "elephant",
+      "definition": "A mammal of the order Proboscidea, having a trunk, and two large ivory tusks jutting from the upper jaw.",
+      "origin": "",
+      "sentence": "Let's play hide and seek. I'll count. One elephant, two elephant, three elephant..."
+    },
+    {
+      "word": "emboss",
+      "definition": "To mark or decorate with a raised design or symbol.",
+      "origin": "",
+      "sentence": "The papers weren't official until the seal had been embossed on them."
+    },
+    {
+      "word": "emit",
+      "definition": "To send out or give off",
+      "origin": "",
+      "sentence": "The word \"emit\" means to send out or give off."
+    },
+    {
+      "word": "enamel",
+      "definition": "An opaque, glassy coating baked onto metal or ceramic objects.",
+      "origin": "",
+      "sentence": "The word \"enamel\" means an opaque, glassy coating baked onto metal or ceramic objects.."
+    },
+    {
+      "word": "energetic",
+      "definition": "Possessing or pertaining to energy.",
+      "origin": "",
+      "sentence": "Cosmic rays are energetic particles from outer space."
+    },
+    {
+      "word": "engineer",
+      "definition": "A person who is qualified or professionally engaged in any branch of engineering.",
+      "origin": "",
+      "sentence": "The word \"engineer\" means a person who is qualified or professionally engaged in any branch of engineering.."
+    },
+    {
+      "word": "enormous",
+      "definition": "Deviating from the norm; unusual, extraordinary.",
+      "origin": "",
+      "sentence": "The word \"enormous\" means deviating from the norm; unusual, extraordinary.."
+    },
+    {
+      "word": "epigram",
+      "definition": "An inscription in stone.",
+      "origin": "",
+      "sentence": "The word \"epigram\" means an inscription in stone.."
+    },
+    {
+      "word": "epilepsy",
+      "definition": "A medical condition in which the sufferer experiences seizures (or convulsions) and blackouts.",
+      "origin": "",
+      "sentence": "The word \"epilepsy\" means a medical condition in which the sufferer experiences seizures (or convulsions) and blackouts.."
+    },
+    {
+      "word": "episode",
+      "definition": "An incident, action, or time period standing out by itself, but more or less connected with a complete series of events.",
+      "origin": "",
+      "sentence": "It was a most embarrassing episode in my life."
+    },
+    {
+      "word": "eruption",
+      "definition": "A violent ejection, such as the spurting out of lava from a volcano.",
+      "origin": "",
+      "sentence": "There was an eruption of joy at the final whistle."
+    },
+    {
+      "word": "evaporation",
+      "definition": "The process of a liquid converting to the gaseous state.",
+      "origin": "",
+      "sentence": "The word \"evaporation\" means the process of a liquid converting to the gaseous state.."
+    },
+    {
+      "word": "evenness",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "eventide",
+      "definition": "Evening",
+      "origin": "",
+      "sentence": "The mist rises from the lake at eventide."
+    },
+    {
+      "word": "evidence",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "evocative",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "evoke",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "exceed",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    }
+  ],
+  "successCount": 48,
+  "failCount": 52
+}

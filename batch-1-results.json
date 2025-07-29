@@ -1,0 +1,606 @@
+{
+  "enrichedWords": [
+    {
+      "word": "abdicate",
+      "definition": "To disclaim and expel from the family, as a father his child; to disown; to disinherit.",
+      "origin": "",
+      "sentence": "Note: The word abdicate was held to mean, in the case of James II, to abandon without a formal surrender."
+    },
+    {
+      "word": "abdomen",
+      "definition": "The fat surrounding the belly.",
+      "origin": "",
+      "sentence": "He was all bent over complaining of pains in the abdomen."
+    },
+    {
+      "word": "ablaze",
+      "definition": "Burning fiercely; in a blaze; on fire.",
+      "origin": "",
+      "sentence": "The word \"ablaze\" means burning fiercely; in a blaze; on fire.."
+    },
+    {
+      "word": "accentuate",
+      "definition": "To pronounce with an accent or vocal stress.",
+      "origin": "",
+      "sentence": "The word \"accentuate\" means to pronounce with an accent or vocal stress.."
+    },
+    {
+      "word": "access",
+      "definition": "A way or means of approaching or entering; an entrance; a passage.",
+      "origin": "",
+      "sentence": "an access of territory"
+    },
+    {
+      "word": "accommodate",
+      "definition": "To render fit, suitable, or correspondent; to adapt.",
+      "origin": "",
+      "sentence": "to accommodate ourselves to circumstances"
+    },
+    {
+      "word": "ace",
+      "definition": "A single point or spot on a playing card or die.",
+      "origin": "",
+      "sentence": "I have the ace of diamonds."
+    },
+    {
+      "word": "acid",
+      "definition": "A sour substance.",
+      "origin": "",
+      "sentence": "acid fruits or liquors"
+    },
+    {
+      "word": "acronym",
+      "definition": "An abbreviation formed by the initial letters of other words, sometimes exclusively such abbreviations when pronounced as a word (as \"laser\") rather than as individual letters (initialisms such as \"TNT\").",
+      "origin": "",
+      "sentence": "The word \"acronym\" means an abbreviation formed by the initial letters of other words, sometimes exclusively such abbreviations when pronounced as a word (as \"laser\") rather than as individual letters (initialisms such as \"tnt\").."
+    },
+    {
+      "word": "actinic",
+      "definition": "Of or relating to actinism.",
+      "origin": "",
+      "sentence": "The word \"actinic\" means of or relating to actinism.."
+    },
+    {
+      "word": "acute",
+      "definition": "A person who has the acute form of a disorder, such as schizophrenia.",
+      "origin": "",
+      "sentence": "The word ‘cafe’ often has an acute over the ‘e’."
+    },
+    {
+      "word": "adamant",
+      "definition": "An imaginary rock or mineral of impenetrable hardness; a name given to the diamond and other substances of extreme hardness.",
+      "origin": "",
+      "sentence": "The word \"adamant\" means an imaginary rock or mineral of impenetrable hardness; a name given to the diamond and other substances of extreme hardness.."
+    },
+    {
+      "word": "adder",
+      "definition": "Any snake.",
+      "origin": "",
+      "sentence": "The word \"adder\" means any snake.."
+    },
+    {
+      "word": "adherent",
+      "definition": "A person who has membership in some group, association or religion.",
+      "origin": "",
+      "sentence": "The word \"adherent\" means a person who has membership in some group, association or religion.."
+    },
+    {
+      "word": "adjournment",
+      "definition": "The state of being adjourned, or action of adjourning.",
+      "origin": "",
+      "sentence": "At midnight we made a motion for adjournment and everyone went home tired."
+    },
+    {
+      "word": "affectation",
+      "definition": "An attempt to assume or exhibit what is not natural or real; false display; artificial show.",
+      "origin": "",
+      "sentence": "The word \"affectation\" means an attempt to assume or exhibit what is not natural or real; false display; artificial show.."
+    },
+    {
+      "word": "affliction",
+      "definition": "A state of pain, suffering, distress or agony.",
+      "origin": "",
+      "sentence": "The word \"affliction\" means a state of pain, suffering, distress or agony.."
+    },
+    {
+      "word": "aftershock",
+      "definition": "An earthquake that follows in the same vicinity as another, usually larger, earthquake (the \"mainshock\").",
+      "origin": "",
+      "sentence": "The word \"aftershock\" means an earthquake that follows in the same vicinity as another, usually larger, earthquake (the \"mainshock\").."
+    },
+    {
+      "word": "agonize",
+      "definition": "To writhe with agony; to suffer violent anguish.",
+      "origin": "",
+      "sentence": "The word \"agonize\" means to writhe with agony; to suffer violent anguish.."
+    },
+    {
+      "word": "albatross",
+      "definition": "Any of various large seabirds of the family Diomedeidae ranging widely in the Southern Ocean and the North Pacific and having a hooked beak and long narrow wings.",
+      "origin": "",
+      "sentence": "The word \"albatross\" means any of various large seabirds of the family diomedeidae ranging widely in the southern ocean and the north pacific and having a hooked beak and long narrow wings.."
+    },
+    {
+      "word": "alcohol",
+      "definition": "Any of a class of organic compounds (such as ethanol) containing a hydroxyl functional group (-OH).",
+      "origin": "",
+      "sentence": "The word \"alcohol\" means any of a class of organic compounds (such as ethanol) containing a hydroxyl functional group (-oh).."
+    },
+    {
+      "word": "alcoves",
+      "definition": "A small recessed area set off from a larger room.",
+      "origin": "",
+      "sentence": "The house was situated in a leafy alcove."
+    },
+    {
+      "word": "algebraically",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "alimentary",
+      "definition": "Of, or relating to food, nutrition or digestion.",
+      "origin": "",
+      "sentence": "The word \"alimentary\" means of, or relating to food, nutrition or digestion.."
+    },
+    {
+      "word": "alleviate",
+      "definition": "To make less severe, as a pain or difficulty.",
+      "origin": "",
+      "sentence": "Alcohol is often a cheap tool to alleviate the stress of a hard day."
+    },
+    {
+      "word": "alligator",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "allocate",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "Almighty",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "alnico",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "altigraph",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "altitude",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "altruism",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "amble",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "amen",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "ample",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "amuse",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "analysis",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "anneal",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "annual",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "antelope",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "anvil",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "aorta",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "approve",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "aqua",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "aquatic",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "arachnid",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "arcaded",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "argentine",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "articulate",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "assimilate",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "asymmetric",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "audit",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "audition",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "autopsy",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "avert",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "awe",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "awhile",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "babyish",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "bactericide",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "baffling",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "banana",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "band",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "baneful",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "banished",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "barley",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "barnacle",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "baste",
+      "definition": "To sew with long or loose stitches, as for temporary use, or in preparation for gathering the fabric.",
+      "origin": "",
+      "sentence": "The word \"baste\" means to sew with long or loose stitches, as for temporary use, or in preparation for gathering the fabric.."
+    },
+    {
+      "word": "batik",
+      "definition": "A wax-resist method of dyeing fabric.",
+      "origin": "",
+      "sentence": "The word \"batik\" means a wax-resist method of dyeing fabric.."
+    },
+    {
+      "word": "battery",
+      "definition": "A device used to power electric devices, consisting of a set of electrically connected electrochemical or, archaically, electrostatic cells. A single such cell when used by itself.",
+      "origin": "",
+      "sentence": "Schoolchildren take a battery of standard tests to measure their progress."
+    },
+    {
+      "word": "beading",
+      "definition": "To form into a bead.",
+      "origin": "",
+      "sentence": "The raindrops beaded on the car's waxed finish."
+    },
+    {
+      "word": "beaker",
+      "definition": "A flat-bottomed vessel, with a lip, used as a laboratory container.",
+      "origin": "",
+      "sentence": "The word \"beaker\" means a flat-bottomed vessel, with a lip, used as a laboratory container.."
+    },
+    {
+      "word": "bedeck",
+      "definition": "To deck, ornament, or adorn; to grace.",
+      "origin": "",
+      "sentence": "She bedecked her wedding gown with seed pearls."
+    },
+    {
+      "word": "beeline",
+      "definition": "A very direct or quick path or trip.",
+      "origin": "",
+      "sentence": "The children made a beeline to the swimming pool."
+    },
+    {
+      "word": "behoove",
+      "definition": "To befit, to suit.",
+      "origin": "",
+      "sentence": "The word \"behoove\" means to befit, to suit.."
+    },
+    {
+      "word": "beletter",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "belief",
+      "definition": "Mental acceptance of a claim as true.",
+      "origin": "",
+      "sentence": "It's my belief that the thief is somebody known to us."
+    },
+    {
+      "word": "bhalu",
+      "definition": "",
+      "origin": "",
+      "sentence": ""
+    },
+    {
+      "word": "bicameral",
+      "definition": "Being or having a system with two, often unequal, chambers or compartments; of, signifying, relating to, or being the product of such a two-chambered system.",
+      "origin": "",
+      "sentence": "the bicameral anatomy of the brain"
+    },
+    {
+      "word": "bilateral",
+      "definition": "A meeting between two people or groups.",
+      "origin": "",
+      "sentence": "The word \"bilateral\" means a meeting between two people or groups.."
+    },
+    {
+      "word": "biopsy",
+      "definition": "The removal and examination of a sample of tissue, cells, or bodily fluid from a living body for diagnostic purposes.",
+      "origin": "",
+      "sentence": "We will need to perform a biopsy to determine whether the tumour is malignant or benign."
+    },
+    {
+      "word": "biotic",
+      "definition": "Of, pertaining to, or produced by life or living organisms",
+      "origin": "",
+      "sentence": "The word \"biotic\" means of, pertaining to, or produced by life or living organisms."
+    },
+    {
+      "word": "birdie",
+      "definition": "(diminutive) A (little) bird; a birdling; a child's term for a bird.",
+      "origin": "",
+      "sentence": "Aw, that's a cute little birdie. Is it a budgie?"
+    },
+    {
+      "word": "bisect",
+      "definition": "A bisector, which divides into two equal parts.",
+      "origin": "",
+      "sentence": "The word \"bisect\" means a bisector, which divides into two equal parts.."
+    },
+    {
+      "word": "black",
+      "definition": "The colour/color perceived in the absence of light, but also when no light is reflected, but rather absorbed.",
+      "origin": "",
+      "sentence": "At this point black makes a disastrous move."
+    },
+    {
+      "word": "blackout",
+      "definition": "A temporary loss of consciousness.",
+      "origin": "",
+      "sentence": "media blackout"
+    },
+    {
+      "word": "blanch",
+      "definition": "To grow or become white",
+      "origin": "",
+      "sentence": "His cheek blanched with fear."
+    },
+    {
+      "word": "bleach",
+      "definition": "Pale; bleak.",
+      "origin": "",
+      "sentence": "The word \"bleach\" means pale; bleak.."
+    },
+    {
+      "word": "blight",
+      "definition": "Any of many plant diseases causing damage to, or the death of, leaves, fruit or other parts.",
+      "origin": "",
+      "sentence": "This vine never blights."
+    },
+    {
+      "word": "blissful",
+      "definition": "Extremely happy; full of joy; experiencing, indicating, causing, or characterized by bliss.",
+      "origin": "",
+      "sentence": "The word \"blissful\" means extremely happy; full of joy; experiencing, indicating, causing, or characterized by bliss.."
+    },
+    {
+      "word": "blithe",
+      "definition": "(dated or literary) Happy, cheerful.",
+      "origin": "",
+      "sentence": "She had a blithe disregard of cultures outside the United States."
+    },
+    {
+      "word": "blizzard",
+      "definition": "A large snowstorm accompanied by strong winds and greatly reduced visibility caused by blowing snow.",
+      "origin": "",
+      "sentence": "a blizzard of political ads"
+    },
+    {
+      "word": "blockade",
+      "definition": "The physical blocking or surrounding of a place, especially a port, in order to prevent commerce and traffic in or out.",
+      "origin": "",
+      "sentence": "The word \"blockade\" means the physical blocking or surrounding of a place, especially a port, in order to prevent commerce and traffic in or out.."
+    },
+    {
+      "word": "bloodbath",
+      "definition": "Indiscriminate killing or slaughter, a massacre.",
+      "origin": "",
+      "sentence": "The word \"bloodbath\" means indiscriminate killing or slaughter, a massacre.."
+    },
+    {
+      "word": "boiling",
+      "definition": "(of liquids) To heat to the point where it begins to turn into a gas.",
+      "origin": "",
+      "sentence": "Boil some water in a pan."
+    },
+    {
+      "word": "bombardment",
+      "definition": "The act of bombing, especially towns or cities",
+      "origin": "",
+      "sentence": "The word \"bombardment\" means the act of bombing, especially towns or cities."
+    },
+    {
+      "word": "bonanza",
+      "definition": "A rich mine or vein of silver or gold.",
+      "origin": "",
+      "sentence": "The popular show quickly became a ratings bonanza for the network."
+    },
+    {
+      "word": "bonbon",
+      "definition": "A sweet, especially a small chocolate-covered candy.",
+      "origin": "",
+      "sentence": "The word \"bonbon\" means a sweet, especially a small chocolate-covered candy.."
+    },
+    {
+      "word": "bongo",
+      "definition": "A striped bovine mammal found in Africa, Tragelaphus eurycerus.",
+      "origin": "",
+      "sentence": "The word \"bongo\" means a striped bovine mammal found in africa, tragelaphus eurycerus.."
+    },
+    {
+      "word": "bonnet",
+      "definition": "A type of hat, once worn by women or children, held in place by ribbons tied under the chin.",
+      "origin": "",
+      "sentence": "The word \"bonnet\" means a type of hat, once worn by women or children, held in place by ribbons tied under the chin.."
+    },
+    {
+      "word": "bookkeeper",
+      "definition": "A person responsible for keeping records or documents, such as of a business.",
+      "origin": "",
+      "sentence": "The word \"bookkeeper\" means a person responsible for keeping records or documents, such as of a business.."
+    }
+  ],
+  "successCount": 56,
+  "failCount": 44
+}
